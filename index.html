@@ -36,14 +36,29 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .stack i:nth-child(1){animation-delay:.9s;--r:-14deg;--x:-40px}
 .stack i:nth-child(2){animation-delay:1s;--r:-4deg;--x:-10px}
 .stack i:nth-child(3){animation-delay:1.1s;--r:8deg;--x:26px}
-.go{position:relative;padding:16px 34px;border-radius:999px;background:var(--amber);color:#1a1205;font-weight:600;letter-spacing:.02em;opacity:0;animation:up .8s 1.5s var(--ease) forwards;overflow:hidden;transition:transform .3s var(--spring)}
+.go{position:relative;padding:16px 34px;border-radius:999px;background:var(--amber);color:#1a1205;font-weight:600;letter-spacing:.02em;opacity:0;animation:up .8s 2.2s var(--ease) forwards;overflow:hidden;transition:transform .3s var(--spring)}
 .go:hover{transform:scale(1.06)}
 .go::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.6s 2.4s infinite}
-.fine{margin-top:22px;font-size:12px;color:#5d6a88;opacity:0;animation:up .8s 1.8s var(--ease) forwards}
+.fine{margin-top:22px;font-size:12px;color:#5d6a88;opacity:0;animation:up .8s 2.4s var(--ease) forwards}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes letter{to{opacity:1;transform:none}}
 @keyframes fan{from{opacity:0;transform:translateY(80px) rotate(0)}to{opacity:1;transform:translateX(var(--x)) rotate(var(--r))}}
 @keyframes shine{to{transform:translateX(100%)}}
+
+#intro{overflow-y:auto}
+.intro-inner{max-width:1040px;padding:48px 24px}
+.about{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 30px;text-align:left}
+.card{position:relative;background:rgba(17,26,46,.75);border:1px solid var(--line);border-radius:16px;padding:18px 18px 20px;opacity:0;transform:translateY(40px) rotateX(25deg);animation:cardIn .9s var(--spring) forwards;transition:border-color .3s,transform .4s var(--spring)}
+.card:hover{border-color:var(--amber);transform:translateY(-6px)}
+.card .ic{font-family:"Instrument Serif",serif;font-size:40px;line-height:1;color:var(--amber);margin-bottom:10px}
+.card h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:22px;margin-bottom:8px}
+.card p{font-size:13.5px;line-height:1.6;color:#b9c3d8}
+.card p b{color:var(--text);font-weight:500}
+.meaning{max-width:720px;margin:26px auto 0;font-size:15px;line-height:1.7;color:#c7cfe0;opacity:0;animation:up .8s 1.35s var(--ease) forwards}
+.meaning b{color:var(--amber);font-weight:500}
+@keyframes cardIn{to{opacity:1;transform:none}}
+@media (max-width:900px){.about{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.about{grid-template-columns:1fr}}
 
 /* ---------- APP SHELL ---------- */
 #app{position:fixed;inset:0;z-index:2;display:grid;grid-template-columns:250px 1fr;grid-template-rows:64px 1fr}
@@ -198,7 +213,13 @@ kbd{font-family:"IBM Plex Mono",monospace;font-size:11px;border:1px solid var(--
     <div class="kicker">Application for Asylum and for Withholding of Removal</div>
     <h1 class="big" id="bigT"></h1>
     <p class="sub">Every box on the form, explained. Click any box and the camera flies in to tell you exactly what belongs there, what trips people up, and what a clean answer looks like.</p>
-    <div class="stack"><i></i><i></i><i></i></div>
+    <p class="meaning"><b>I-589</b> is the form a person in the United States uses to ask for protection because they fear persecution or torture if sent back to their home country. One application asks for three kinds of protection at once: <b>asylum</b>, <b>withholding of removal</b>, and protection under the <b>Convention Against Torture</b>. It's shared by U.S. Citizenship and Immigration Services and the immigration courts, which is why both agencies appear at the top of the form.</p>
+    <div class="about">
+      <div class="card" style="animation-delay:1.55s"><div class="ic">01</div><h3>Who files it</h3><p>Anyone <b>physically in the U.S.</b>, whatever their current status or how they entered. A spouse and unmarried children <b>under 21</b> in the U.S. can usually be included on the same application.</p></div>
+      <div class="card" style="animation-delay:1.7s"><div class="ic">02</div><h3>Two paths</h3><p><b>Affirmative:</b> not in removal proceedings, so you file with USCIS and interview with an asylum officer. <b>Defensive:</b> already in immigration court, so you file with the immigration judge.</p></div>
+      <div class="card" style="animation-delay:1.85s"><div class="ic">03</div><h3>The clock</h3><p>Asylum generally must be filed <b>within one year</b> of your last arrival, with narrow exceptions. Withholding and torture protection have <b>no one-year deadline</b>.</p></div>
+      <div class="card" style="animation-delay:2s"><div class="ic">04</div><h3>What it proves</h3><p>Your story, in your words: <b>what happened</b>, <b>who did it</b>, and <b>why</b>, tied to race, religion, nationality, political opinion or a particular social group. Honesty matters; a frivolous application has permanent consequences.</p></div>
+    </div>
     <button class="go" id="goBtn">Open the form</button>
     <p class="fine">An educational guide, not legal advice. Always check the current edition and instructions at uscis.gov/i-589.</p>
   </div>
