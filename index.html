@@ -74,6 +74,8 @@ header{grid-column:1/-1;display:flex;align-items:center;gap:18px;padding:0 22px;
 .ring circle{fill:none;stroke-width:4}
 .ring .bgc{stroke:var(--line)}
 .ring .fg{stroke:var(--amber);stroke-linecap:round;transition:stroke-dashoffset .8s var(--ease)}
+.homebtn{display:flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;font-size:13px;transition:all .3s var(--spring)}
+.homebtn:hover{border-color:var(--amber);color:var(--amber);transform:translateX(-3px)}
 .tourbtn{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;transition:all .3s;white-space:nowrap}
 .tourbtn:hover,.tourbtn.on{border-color:var(--amber);color:var(--amber)}
 
@@ -227,6 +229,7 @@ kbd{font-family:"IBM Plex Mono",monospace;font-size:11px;border:1px solid var(--
 
 <div id="app">
   <header>
+    <button class="homebtn" id="homeBtn" title="Back to the intro page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg><span>Home</span></button>
     <div class="logo">I-589 <b>decoded</b></div>
     <div class="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -512,7 +515,13 @@ function mark(q){boxes.forEach(b=>{const f=fieldOf(b);if((f.l+" "+f.w+" "+f.t.jo
  const m=boxes.find(b=>b.classList.contains("match"));if(m&&!zoomed){const p=boxPos(m);ty=stage.clientHeight/2-p.y*baseS;fit(false);setCam(baseX,ty,baseS)}}
 
 /* intro */
-$("#goBtn").onclick=()=>{$("#intro").classList.add("gone");burst();setTimeout(()=>{renderSheet(0);fit(true);
+$("#homeBtn").onclick=()=>{
+ unfocus();$("#q").value="";const it=$("#intro");it.scrollTop=0;
+ it.querySelectorAll("*").forEach(el=>{el.style.animation="none"});void it.offsetWidth;
+ it.querySelectorAll("*").forEach(el=>{el.style.animation=""});
+ it.classList.remove("gone");
+};
+$("#goBtn").onclick=()=>{curPart=0;$("#intro").classList.add("gone");burst();setTimeout(()=>{renderSheet(0);fit(true);
  const sh=cam.firstChild;sh.classList.remove("flip-in");sh.animate([{transform:"translateY(500px) rotateX(35deg) rotateZ(-6deg)",opacity:0},{transform:"none",opacity:1}],{duration:1200,easing:"cubic-bezier(.34,1.3,.64,1)"})},250);updateProgress()};
 
 /* ================= BACKGROUND ================= */
